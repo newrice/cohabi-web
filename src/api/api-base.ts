@@ -6,7 +6,10 @@ import {
 } from "./types";
 import settings from "../settings";
 
-export const BASE_BACKEND = settings.api.production;
+export const BASE_BACKEND =
+  settings.api[
+    process.env.NODE_ENV as "production" | "staging" | "test" | "development"
+  ];
 
 const baseHeaders = {
   "Content-Type": "application/json; charset=utf-8",
