@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { v4 as uuid } from "uuid";
 import { BASE_BACKEND, getData, postData } from "./api/api-base";
 import settings from "./settings";
 
@@ -7,23 +6,18 @@ const App = (): JSX.Element => {
   const [name, setName] = useState<string>("");
   const [nameList, setNameList] = useState<string[]>([]);
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    debugger;
     setName(event.target.value);
   };
   const handleClick = () => {
     postData({
       url: BASE_BACKEND + settings.url.hello,
-      body: {
-        id: uuid(),
-        name,
-      },
+      body: { name },
     }).then(() => {
       getData({
         url: BASE_BACKEND + settings.url.hello,
       }).then(res => {
-        console.log(res);
         setNameList(
-          res.map((item: any) => {
+          res.body.users.map((item: any) => {
             if (typeof item === "string") {
               return item;
             }
