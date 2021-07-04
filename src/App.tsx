@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { BASE_BACKEND, getData, postData } from "./api/api-base";
+import { ApiProp, ApiPropWithBody } from "./api/types";
 import settings from "./settings";
 
 const LoginButton = () => {
@@ -65,17 +66,36 @@ const Profile = (): JSX.Element => {
 };
 
 const Greet = (): JSX.Element => {
+  const { getAccessTokenSilently } = useAuth0();
   const [name, setName] = useState<string>("");
   const [nameList, setNameList] = useState<string[]>([]);
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
+  // TODO: カスタムHookにしたい
+  const callSecureApi = async (
+    func: (props: ApiPropWithBody | ApiProp) => Promise<any>,
+    props: ApiPropWithBody,
+  ) => {
+    try {
+      const token = await getAccessTokenSilently();
+
+      const res = await func({
+        ...props,
+        withAuth: true,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
   const handleClick = () => {
-    postData({
+    callSecureApi(postData, {
       url: BASE_BACKEND + settings.url.hello,
       body: { name },
     }).then(() => {
-      getData({
+      callSecureApi(getData, {
         url: BASE_BACKEND + settings.url.hello,
       }).then(res => {
         setNameList(
@@ -99,8 +119,8 @@ const Greet = (): JSX.Element => {
       </div>
       <div>
         <ol>
-          {nameList.map(n => (
-            <li>{`${n || "名無し"} さん、こんにちは`}</li>
+          {nameList.map((n, i) => (
+            <li key={`${n}+${i}`}>{`${n || "名無し"} さん、こんにちは`}</li>
           ))}
         </ol>
       </div>

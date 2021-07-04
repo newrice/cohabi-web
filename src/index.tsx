@@ -10,7 +10,7 @@ ReactDOM.render(
       domain="dev-uql6wxih.jp.auth0.com"
       clientId="pnvoMGANLncHiyXpQU9H0i45UDDr935j"
       redirectUri={window.location.origin}
-      audience="https://dev-uql6wxih.jp.auth0.com/api/v2/"
+      audience="https://api-staging.cohabi.runemosuky.com"
       scope="read:current_user update:current_user_metadata"
     >
       <App />

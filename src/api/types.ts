@@ -37,6 +37,7 @@ export interface ApiProp {
   url?: string;
   params?: QueryParams;
   withAuth?: boolean;
+  headers?: Headers | Record<string, string>;
 }
 export interface ApiPropWithBody extends ApiProp {
   body?: unknown;
