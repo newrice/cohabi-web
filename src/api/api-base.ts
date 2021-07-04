@@ -127,14 +127,14 @@ export const postData = async ({
   url = BASE_BACKEND,
   params,
   body,
-  withAuth,
+  headers,
 }: // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ApiPropWithBody): Promise<any> => {
   const prop = {
     url,
     params,
     body,
-    headers: baseHeaders,
+    headers: { ...baseHeaders, ...headers },
   };
   //   if (withAuth) {
   //     return withAuthPost(prop);
@@ -146,14 +146,14 @@ export const putData = async ({
   url = BASE_BACKEND,
   body,
   params,
-  withAuth,
+  headers,
 }: // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ApiPropWithBody): Promise<any> => {
   const prop = {
     url,
     params,
     body,
-    headers: baseHeaders,
+    headers: { ...baseHeaders, ...headers },
   };
   //   if (withAuth) {
   //     return withAuthPut(prop);
@@ -164,13 +164,13 @@ ApiPropWithBody): Promise<any> => {
 export const getData = async ({
   url = BASE_BACKEND,
   params,
-  withAuth,
+  headers,
 }: // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ApiProp): Promise<any> => {
   const prop = {
     url,
     params,
-    headers: baseHeaders,
+    headers: { ...baseHeaders, ...headers },
   };
   //   if (withAuth) {
   //     return withAuthGet(prop);
@@ -181,13 +181,13 @@ ApiProp): Promise<any> => {
 export const deleteData = async ({
   url = BASE_BACKEND,
   params,
-  withAuth,
+  headers,
 }: // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ApiProp): Promise<any> => {
   const prop = {
     url,
     params,
-    headers: baseHeaders,
+    headers: { ...baseHeaders, ...headers },
   };
   //   if (withAuth) {
   //     return withAuthDelete(prop);

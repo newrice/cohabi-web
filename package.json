@@ -7,10 +7,11 @@
   "scripts": {
     "build": "ts-node ./scripts/build.ts",
     "watch": "ts-node ./scripts/watch.ts",
-    "server": "reload -d build",
-    "backend": "json-server --watch ./mock/db.json"
+    "server": "reload -d build -p 3000",
+    "backend": "json-server --watch ./mock/db.json -p 3001"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^1.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
