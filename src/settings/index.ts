@@ -2,7 +2,7 @@
 export default {
   api: {
     production: "http://localhost:3000",
-    staging: "http://localhost:8000",
+    staging: "{OVERWRITE_STG_API_ENDPOINT}",
     development: "http://localhost:3000",
     test: "http://localhost:3000",
   },
